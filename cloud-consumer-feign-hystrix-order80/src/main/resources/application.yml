@@ -1,0 +1,25 @@
+server:
+  port: 80
+spring:
+  application:
+    name: consumer-hystrix-order
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 8000 #命令执行超时时间，默认1000ms,就是调接口的响应时间超过3S就执行降级，不管提供者是否挂机还是延迟超过时间就走降级
